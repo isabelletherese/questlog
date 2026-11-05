@@ -1,7 +1,7 @@
 import { useGames } from '../hooks/useGames'
 
 const Games = () => {
-  const { isLoading, error, games } = useGames()
+  const { isLoading, error, games } = useGames(null)
 
   return (
     <div>
