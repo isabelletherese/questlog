@@ -1,34 +1,7 @@
-import { useState, useEffect } from 'react'
-import type { Game } from '../types/game'
-import { API_URL } from '../config'
+import { useGames } from '../hooks/useGames'
 
 const Games = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState('')
-  const [games, setGames] = useState<Game[]>([])
-
-  useEffect(() => {
-    const fetchGames = async () => {
-      setIsLoading(true)
-      setError('')
-
-      try {
-        const response = await fetch(API_URL + '/games')
-        const data = await response.json()
-
-        if (!response.ok) {
-          setError(data.message ?? 'Something went wrong')
-          return
-        }
-        setGames(data)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown Error')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    fetchGames()
-  }, [])
+  const { isLoading, error, games } = useGames()
 
   return (
     <div>
