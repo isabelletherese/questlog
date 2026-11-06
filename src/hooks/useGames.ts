@@ -39,3 +39,39 @@ export const useGames = (status: Status | null) => {
 
   return { isLoading, error, games }
 }
+
+export const useGame = (id: string | undefined) => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [game, setGame] = useState<Game | null>(null)
+
+  useEffect(() => {
+    if (!id) {
+      return
+    }
+    const fetchGame = async () => {
+      setIsLoading(true)
+      setError('')
+
+      try {
+        const response = await fetch(`${API_URL}/games/${id}`)
+        const data = await response.json()
+
+        if (!response.ok) {
+          setError(data.message ?? 'Something went wrong')
+          setIsLoading(false)
+          return
+        }
+
+        setGame(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown Error')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchGame()
+  }, [id])
+
+  return { isLoading, error, game }
+}
