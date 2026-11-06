@@ -9,3 +9,9 @@ export type Game = {
   coverUrl?: string
   notes?: string
 }
+
+export type NewGame = {
+  title: string
+  platform: string
+  status: Status
+}
