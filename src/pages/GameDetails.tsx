@@ -1,5 +1,6 @@
 import { useParams } from 'react-router'
 import { useGame } from '../hooks/useGames'
+import { statusLabels } from '../types/status'
 
 const GameDetails = () => {
   const { id } = useParams()
@@ -23,11 +24,9 @@ const GameDetails = () => {
           )}
 
           <div className="flex flex-col gap-3">
-            <h1 className="text-4xl font-bold">{game.title}</h1>
-            <p className="text-lg text-gray-400">{game.platform}</p>
-            <p className="w-fit rounded-full bg-gray-800 px-3 py-1 text-sm uppercase tracking-wide">
-              {game.status}
-            </p>
+            <span className="w-fit rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-sm text-accent">
+              {statusLabels[game.status]}
+            </span>
             {game.rating !== undefined && (
               <p className="text-xl">Rating: {game.rating}/5</p>
             )}
