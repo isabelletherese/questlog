@@ -107,5 +107,28 @@ export const useSaveGame = () => {
       setIsSaving(false)
     }
   }
-  return { isSaving, error, addGame }
+
+  const deleteGame = async (id: string) => {
+    setIsSaving(true)
+    setError('')
+
+    try {
+      const response = await fetch(`${API_URL}/games/${id}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) {
+        const data = await response.json()
+        setError(data.message ?? 'Something went wrong')
+        return
+      }
+
+      navigate(`/games`)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown Error')
+    } finally {
+      setIsSaving(false)
+    }
+  }
+  return { isSaving, error, addGame, deleteGame }
 }
