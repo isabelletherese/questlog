@@ -2,25 +2,40 @@ import { useState } from 'react'
 import { useGames } from '../hooks/useGames'
 import StatusFilter from '../components/StatusFilter'
 import type { Status } from '../types/status'
+import GameCard from '../components/GameCard'
 
 const Games = () => {
   const [filter, setFilter] = useState<Status | null>(null)
   const { isLoading, error, games } = useGames(filter)
 
   return (
-    <div>
-      <h1>Welcome to the Games Page</h1>
-      {isLoading && <p>Loading games...</p>}
-      {error && <p className="error">Could not load games: {error}</p>}
+    <div className="mx-auto max-w-6xl p-6">
+      <div className="mb-8">
+        <h1 className="font-heading text-4xl font-semibold text-text-primary">
+          My Games
+        </h1>
+      </div>
 
-      <StatusFilter filter={filter} setSelectedFilter={setFilter} />
+      <div className="mb-8">
+        <StatusFilter filter={filter} setSelectedFilter={setFilter} />
+      </div>
 
-      <ul>
+      {isLoading && (
+        <p className="mt-6 text-text-secondary">Loading games...</p>
+      )}
+
+      {error && (
+        <p className="mt-6 text-red-300">Could not load games: {error}</p>
+      )}
+
+      {!isLoading && !error && games.length === 0 && (
+        <p className="mt-6 text-text-secondary">No games here yet.</p>
+      )}
+
+      <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {games.map((game) => (
           <li key={game.id}>
-            {game.title}
-            {game.platform}
-            {game.status}
+            <GameCard game={game} />
           </li>
         ))}
       </ul>

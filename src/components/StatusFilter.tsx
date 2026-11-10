@@ -5,31 +5,42 @@ type StatusFilterProps = {
   setSelectedFilter: (status: Status | null) => void
 }
 
+const buttonClass = (active: boolean) =>
+  `cursor-pointer rounded-full border px-5 py-2 text-sm font-medium transition-all duration-200 ${
+    active
+      ? 'border-accent bg-accent text-sidebar shadow-md shadow-black/20'
+      : 'border-text-primary/10 bg-surface/80 text-text-secondary hover:border-accent/40 hover:bg-surface-hover hover:text-text-primary'
+  }`
+
 const StatusFilter = ({ filter, setSelectedFilter }: StatusFilterProps) => {
   return (
-    <div>
+    <div className="flex flex-wrap gap-3">
       <button
-        disabled={filter === null}
+        className={buttonClass(filter === null)}
         onClick={() => setSelectedFilter(null)}>
         All
       </button>
+
       <button
-        disabled={filter === 'want'}
+        className={buttonClass(filter === 'want')}
         onClick={() => setSelectedFilter('want')}>
         Want to play
       </button>
+
       <button
-        disabled={filter === 'playing'}
+        className={buttonClass(filter === 'playing')}
         onClick={() => setSelectedFilter('playing')}>
         Playing
       </button>
+
       <button
-        disabled={filter === 'completed'}
+        className={buttonClass(filter === 'completed')}
         onClick={() => setSelectedFilter('completed')}>
         Completed
       </button>
+
       <button
-        disabled={filter === 'dropped'}
+        className={buttonClass(filter === 'dropped')}
         onClick={() => setSelectedFilter('dropped')}>
         Dropped
       </button>
