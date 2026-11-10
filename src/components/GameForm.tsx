@@ -83,7 +83,7 @@ const GameForm = ({
         {isSaving ? 'Saving...' : submitLabel}
       </button>
 
-      {error && <p className="text-dropped">Could not save game: {error}</p>}
+      {error && <p className="text-error">Could not save game: {error}</p>}
     </form>
   )
 }
