@@ -10,7 +10,7 @@ export type Game = {
   notes?: string
 }
 
-export type NewGame = {
+export type GameInput = {
   title: string
   platform: string
   status: Status

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { API_URL } from '../config'
-import type { Game, NewGame } from '../types/game'
+import type { Game, GameInput } from '../types/game'
 import type { Status } from '../types/status'
 import { useNavigate } from 'react-router'
 
@@ -82,12 +82,12 @@ export const useSaveGame = () => {
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
-  const addGame = async (newGame: NewGame) => {
+  const addGame = async (newGame: GameInput) => {
     setIsSaving(true)
     setError('')
 
     try {
-      const response = await fetch(`${API_URL}/games/`, {
+      const response = await fetch(`${API_URL}/games`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
