@@ -1,5 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
+
 @import 'tailwindcss';
 
+@theme {
+  --color-bg: #171519;
+  --color-sidebar: #211d20;
+  --color-surface: #2a2528;
+  --color-surface-hover: #393137;
+
+  --color-text-primary: #f1e5d4;
+  --color-text-secondary: #c4b8b1;
+  --color-text-muted: #827a7d;
+
+  --color-accent: #e9cda5;
+
+  --font-heading: 'Fraunces', serif;
+  --font-body: 'Nunito Sans', sans-serif;
+}
+
 body {
-  @apply bg-gray-950 text-gray-100;
+  @apply bg-bg font-body text-text-primary;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-heading;
 }
