@@ -25,7 +25,7 @@ const Games = () => {
       )}
 
       {error && (
-        <p className="mt-6 text-red-300">Could not load games: {error}</p>
+        <p className="mt-6 text-error">Could not load games: {error}</p>
       )}
 
       {!isLoading && !error && games.length === 0 && (

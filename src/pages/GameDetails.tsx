@@ -9,7 +9,7 @@ const GameDetails = () => {
     <div className="mx-auto max-w-5xl p-6">
       {isLoading && <p className="text-gray-400">Loading game details...</p>}
       {error && (
-        <p className="text-red-400">Could not load game details: {error}</p>
+        <p className="text-error">Could not load game details: {error}</p>
       )}
 
       {game && (
