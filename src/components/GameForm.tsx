@@ -15,6 +15,8 @@ const inputStyle =
 
 const labelStyle = 'text-sm text-text-secondary'
 
+const Required = () => <span className="text-error"> *</span>
+
 const GameForm = ({
   initialInputs,
   onSubmit,
@@ -25,19 +27,34 @@ const GameForm = ({
   const [title, setTitle] = useState(initialInputs.title)
   const [platform, setPlatform] = useState(initialInputs.platform)
   const [status, setStatus] = useState<Status>(initialInputs.status)
+  const [rating, setRating] = useState(initialInputs.rating?.toString() ?? '')
+  const [coverUrl, setCoverUrl] = useState(initialInputs.coverUrl ?? '')
+  const [notes, setNotes] = useState(initialInputs.notes ?? '')
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onSubmit({ title, platform, status })
+
+    const input: GameInput = {
+      title,
+      platform,
+      status,
+      rating: rating === '' ? '' : Number(rating),
+      notes,
+      coverUrl,
+    }
+    onSubmit(input)
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-5 rounded-2xl border border-text-primary/10 bg-surface/90 p-6 shadow-lg shadow-black/20">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <p className="text-sm text-text-muted">
+        Fields marked with <span className="text-error">*</span> are required.
+      </p>
+
       <div className="flex flex-col gap-1">
         <label htmlFor="title" className={labelStyle}>
           Title
+          <Required />
         </label>
         <input
           id="title"
@@ -51,6 +68,7 @@ const GameForm = ({
       <div className="flex flex-col gap-1">
         <label htmlFor="platform" className={labelStyle}>
           Platform
+          <Required />
         </label>
         <input
           id="platform"
@@ -64,6 +82,7 @@ const GameForm = ({
       <div className="flex flex-col gap-1">
         <label htmlFor="status" className={labelStyle}>
           Status
+          <Required />
         </label>
         <select
           id="status"
@@ -75,6 +94,51 @@ const GameForm = ({
           <option value="completed">Completed</option>
           <option value="dropped">Dropped</option>
         </select>
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="rating" className={labelStyle}>
+          Rating
+        </label>
+        <select
+          id="rating"
+          className={inputStyle}
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}>
+          <option value="">No rating</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="coverUrl" className={labelStyle}>
+          Cover image URL
+        </label>
+        <input
+          id="coverUrl"
+          type="url"
+          className={inputStyle}
+          value={coverUrl}
+          onChange={(e) => setCoverUrl(e.target.value)}
+          placeholder="https://..."
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="notes" className={labelStyle}>
+          Notes
+        </label>
+        <textarea
+          id="notes"
+          rows={4}
+          className={inputStyle}
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+        />
       </div>
 
       <button

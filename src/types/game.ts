@@ -14,4 +14,7 @@ export type GameInput = {
   title: string
   platform: string
   status: Status
+  rating?: number | ''
+  coverUrl?: string
+  notes?: string
 }
