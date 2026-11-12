@@ -60,7 +60,6 @@ export const useGame = (id: string | undefined) => {
 
         if (!response.ok) {
           setError(data.message ?? 'Something went wrong')
-          setIsLoading(false)
           return
         }
 
@@ -74,7 +73,7 @@ export const useGame = (id: string | undefined) => {
     fetchGame()
   }, [id])
 
-  return { isLoading, error, game }
+  return { isLoading, error, game, setGame }
 }
 
 export const useSaveGame = () => {
@@ -108,6 +107,33 @@ export const useSaveGame = () => {
     }
   }
 
+  const updateGame = async (id: string, input: GameInput) => {
+    setIsSaving(true)
+    setError('')
+
+    try {
+      const response = await fetch(`${API_URL}/games/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      })
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.message ?? 'Something went wrong')
+        return null
+      }
+      return data as Game
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown Error')
+      return null
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   const deleteGame = async (id: string) => {
     setIsSaving(true)
     setError('')
@@ -130,5 +156,5 @@ export const useSaveGame = () => {
       setIsSaving(false)
     }
   }
-  return { isSaving, error, addGame, deleteGame }
+  return { isSaving, error, addGame, updateGame, deleteGame }
 }

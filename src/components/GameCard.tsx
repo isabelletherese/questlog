@@ -31,9 +31,9 @@ const GameCard = ({ game }: GameCardProps) => {
 
         <div className="mt-3 flex items-center justify-between text-sm">
           <span className="text-text-muted">{statusLabels[game.status]}</span>
-          {game.rating !== undefined && (
+          {game.rating ? (
             <span className="text-accent">★ {game.rating}/5</span>
-          )}
+          ) : null}
         </div>
       </div>
     </Link>

@@ -1,11 +1,14 @@
+import { useState } from 'react'
 import { useParams } from 'react-router'
 import { useGame, useSaveGame } from '../hooks/useGames'
 import { statusLabels } from '../types/status'
+import EditGame from '../components/EditGame'
 
 const GameDetails = () => {
   const { id } = useParams()
-  const { isLoading, error, game } = useGame(id)
+  const { isLoading, error, game, setGame } = useGame(id)
   const { isSaving, error: saveError, deleteGame } = useSaveGame()
+  const [isEditing, setIsEditing] = useState(false)
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -34,33 +37,53 @@ const GameDetails = () => {
               {statusLabels[game.status]}
             </span>
 
-            {game.rating !== undefined && (
+            {game.rating ? (
               <p className="text-xl font-medium text-accent">
                 ★ {game.rating}/5
               </p>
-            )}
+            ) : null}
 
             {game.notes && (
               <p className="mt-4 border-l-2 border-accent/40 pl-4 text-text-secondary italic">
                 {game.notes}
               </p>
             )}
-            <button
-              onClick={() => {
-                if (window.confirm(`Delete "${game.title}"?`)) {
-                  deleteGame(game.id)
-                }
-              }}
-              disabled={isSaving}
-              className="w-fit rounded-lg border border-error/40 px-4 py-2 text-error hover:bg-error/10 disabled:opacity-50">
-              Delete
-            </button>
+
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="rounded-lg bg-accent px-4 py-2 font-semibold text-sidebar hover:brightness-110">
+                Edit
+              </button>
+
+              <button
+                onClick={() => {
+                  if (window.confirm(`Delete "${game.title}"?`)) {
+                    deleteGame(game.id)
+                  }
+                }}
+                disabled={isSaving}
+                className="w-fit rounded-lg border border-error/40 px-4 py-2 text-error hover:bg-error/10 disabled:opacity-50">
+                Delete
+              </button>
+            </div>
 
             {saveError && (
               <p className="text-error">Could not delete game: {saveError}</p>
             )}
           </div>
         </article>
+      )}
+
+      {game && isEditing && (
+        <EditGame
+          game={game}
+          onClose={() => setIsEditing(false)}
+          onSaved={(updated) => {
+            setGame(updated)
+            setIsEditing(false)
+          }}
+        />
       )}
     </div>
   )
