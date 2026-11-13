@@ -30,7 +30,9 @@ const GameCard = ({ game }: GameCardProps) => {
         <p className="text-sm text-text-secondary">{game.platform}</p>
 
         <div className="mt-3 flex items-center justify-between text-sm">
-          <span className="text-text-muted">{statusLabels[game.status]}</span>
+          <span className="w-fit rounded-full border border-accent/30 bg-accent/10 px-2 py-1 text-sm text-accent">
+            {statusLabels[game.status]}
+          </span>
           {game.rating ? (
             <span className="text-accent">★ {game.rating}/5</span>
           ) : null}
