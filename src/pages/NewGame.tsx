@@ -5,7 +5,7 @@ const NewGamePage = () => {
   const { isSaving, error, addGame } = useSaveGame()
 
   return (
-    <div className="mx-auto max-w-xl p-6">
+    <div className="mx-auto max-w-xl p-6 bg-surface/50 rounded-2xl border border-accent/20">
       <h1 className="mb-6 text-3xl font-bold">New Game</h1>
       <GameForm
         initialInputs={{ title: '', platform: '', status: 'want' }}
