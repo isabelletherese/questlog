@@ -15,8 +15,7 @@ const Games = () => {
           My Games
         </h1>
       </div>
-
-      <div className="mb-8">
+      <div className="mb-8 flex flex-col gap-4 xl:flex-row xl:flex-start xl:justify-between ">
         <StatusFilter filter={filter} setSelectedFilter={setFilter} />
       </div>
 
@@ -32,7 +31,7 @@ const Games = () => {
         <p className="mt-6 text-text-secondary">No games here yet.</p>
       )}
 
-      <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+      <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {games.map((game) => (
           <li key={game.id}>
             <GameCard game={game} />

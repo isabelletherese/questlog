@@ -21,7 +21,7 @@ const Root = () => {
       <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex items-center gap-3 border-b border-text-primary/10 bg-sidebar/80 px-4 py-3 md:hidden">
+        <header className="flex items-center gap-3 border-b border-text-primary/10 bg-sidebar/80 px-4 py-3 lg:hidden">
           <button
             onClick={() => setIsOpen(true)}
             aria-label="Open menu"

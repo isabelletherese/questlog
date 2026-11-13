@@ -33,13 +33,13 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 shrink-0 border-r border-text-primary/10 bg-sidebar/95 px-5 py-8 transition-transform md:static md:translate-x-0 md:bg-sidebar/30 ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 shrink-0 border-r border-text-primary/10 bg-sidebar/95 px-5 py-8 transition-transform lg:static lg:translate-x-0 lg:bg-sidebar/30 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
         <button
           onClick={onClose}
           aria-label="Close menu"
-          className="absolute right-4 top-4 text-text-secondary md:hidden">
+          className="absolute right-4 top-4 text-text-secondary lg:hidden">
           <X size={24} />
         </button>
 
