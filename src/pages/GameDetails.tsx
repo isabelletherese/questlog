@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useGame, useSaveGame } from '../hooks/useGames'
 import { statusLabels } from '../types/status'
 import EditGame from '../components/EditGame'
@@ -9,6 +9,9 @@ const GameDetails = () => {
   const { isLoading, error, game, setGame } = useGame(id)
   const { isSaving, error: saveError, deleteGame } = useSaveGame()
   const [isEditing, setIsEditing] = useState(false)
+  const navigate = useNavigate()
+
+  const buttonStyle = 'rounded-lg border px-4 py-2 cursor-pointer'
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -26,8 +29,7 @@ const GameDetails = () => {
               alt={`${game.title} cover`}
             />
           )}
-
-          <div className="flex flex-col gap-3">
+          <div className="flex min-w-0 flex-1 flex-col gap-3">
             <h1 className="text-4xl font-semibold text-text-primary">
               {game.title}
             </h1>
@@ -49,10 +51,10 @@ const GameDetails = () => {
               </p>
             )}
 
-            <div className="mt-6 flex gap-3">
+            <div className="mt-auto flex w-full items-center gap-3 pt-6">
               <button
                 onClick={() => setIsEditing(true)}
-                className="rounded-lg bg-accent px-4 py-2 font-semibold text-sidebar hover:brightness-110">
+                className={`${buttonStyle} bg-accent font-semibold text-sidebar hover:brightness-110`}>
                 Edit
               </button>
 
@@ -63,8 +65,13 @@ const GameDetails = () => {
                   }
                 }}
                 disabled={isSaving}
-                className="w-fit rounded-lg border border-error/40 px-4 py-2 text-error hover:bg-error/10 disabled:opacity-50">
+                className={`${buttonStyle} border-error/40  text-error hover:bg-error/10 disabled:opacity-50`}>
                 Delete
+              </button>
+              <button
+                onClick={() => navigate('/games')}
+                className={`${buttonStyle} border-text-primary/20 text-text-primary hover:bg-surface-hover ml-auto`}>
+                Back
               </button>
             </div>
 
