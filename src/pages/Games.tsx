@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useGames } from '../hooks/useGames'
 import StatusFilter from '../components/StatusFilter'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 import type { Status } from '../types/status'
 import GameCard from '../components/GameCard'
 
 const Games = () => {
-  const [filter, setFilter] = useState<Status | null>(null)
+  const [filter, setFilter] = useLocalStorage<Status | null>('gameFilter', null)
   const { isLoading, error, games } = useGames(filter)
 
   return (
