@@ -1,13 +1,22 @@
-import { useState } from 'react'
 import { useGames } from '../hooks/useGames'
 import StatusFilter from '../components/StatusFilter'
+import GameCard from '../components/GameCard'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import type { Status } from '../types/status'
-import GameCard from '../components/GameCard'
+import { useState } from 'react'
 
 const Games = () => {
   const [filter, setFilter] = useLocalStorage<Status | null>('gameFilter', null)
   const { isLoading, error, games } = useGames(filter)
+  const [search, setSearch] = useState('')
+  const { isLoading: isLoadingAll, games: allGames } = useGames(null)
+
+  const visibleGames = games.filter((game) => {
+    const matchesSearch =
+      game.title.toLowerCase().includes(search.toLowerCase()) ||
+      game.platform.toLowerCase().includes(search.toLowerCase())
+    return matchesSearch
+  })
 
   return (
     <div className="mx-auto max-w-6xl p-6">
@@ -18,8 +27,19 @@ const Games = () => {
       </div>
       <div className="mb-8 flex flex-col gap-4 xl:flex-row xl:flex-start xl:justify-between ">
         <StatusFilter filter={filter} setSelectedFilter={setFilter} />
-      </div>
 
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search games or console..."
+          className="w-full rounded-lg border border-text-primary/10 bg-surface px-4 py-2 text-text-primary placeholder:text-text-secondary focus:border-accent focus:outline-none xl:w-72 xl:shrink-0"
+        />
+      </div>
+      {!isLoading && !isLoadingAll && (
+        <p className="text-sm text-text-secondary mb-3">
+          Showing {visibleGames.length} of {allGames.length} games
+        </p>
+      )}
       {isLoading && (
         <p className="mt-6 text-text-secondary">Loading games...</p>
       )}
@@ -33,7 +53,7 @@ const Games = () => {
       )}
 
       <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {games.map((game) => (
+        {visibleGames.map((game) => (
           <li key={game.id}>
             <GameCard game={game} />
           </li>
