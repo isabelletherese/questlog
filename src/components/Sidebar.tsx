@@ -54,7 +54,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         </Link>
 
         <nav className="flex flex-col gap-3">
-          <NavLink to="/" end onClick={onClose} className={navLinkClass}>
+          <NavLink to="/games" end onClick={onClose} className={navLinkClass}>
             My Games
           </NavLink>
           <NavLink to="/games/new" onClick={onClose} className={navLinkClass}>
