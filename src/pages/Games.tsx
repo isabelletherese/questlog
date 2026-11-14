@@ -25,7 +25,7 @@ const Games = () => {
           My Games
         </h1>
       </div>
-      <div className="mb-8 flex flex-col gap-4 xl:flex-row xl:flex-start xl:justify-between ">
+      <div className="mb-8 flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between ">
         <StatusFilter filter={filter} setSelectedFilter={setFilter} />
 
         <input
@@ -48,9 +48,19 @@ const Games = () => {
         <p className="mt-6 text-error">Could not load games: {error}</p>
       )}
 
-      {!isLoading && !error && games.length === 0 && (
-        <p className="mt-6 text-text-secondary">No games here yet.</p>
+      {!isLoading && !isLoadingAll && !error && allGames.length === 0 && (
+        <p className="mt-6 text-text-secondary">
+          You have no games yet. Add your first game from the menu.
+        </p>
       )}
+
+      {!isLoading &&
+        !isLoadingAll &&
+        !error &&
+        allGames.length > 0 &&
+        visibleGames.length === 0 && (
+          <p className="mt-6 text-text-secondary">No games found.</p>
+        )}
 
       <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visibleGames.map((game) => (
