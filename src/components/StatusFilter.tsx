@@ -17,30 +17,35 @@ const StatusFilter = ({ filter, setSelectedFilter }: StatusFilterProps) => {
     <div className="flex flex-wrap gap-3">
       <button
         className={buttonClass(filter === null)}
+        aria-pressed={filter === null}
         onClick={() => setSelectedFilter(null)}>
         All
       </button>
 
       <button
         className={buttonClass(filter === 'want')}
+        aria-pressed={filter === 'want'}
         onClick={() => setSelectedFilter('want')}>
         Want to play
       </button>
 
       <button
         className={buttonClass(filter === 'playing')}
+        aria-pressed={filter === 'playing'}
         onClick={() => setSelectedFilter('playing')}>
         Playing
       </button>
 
       <button
         className={buttonClass(filter === 'completed')}
+        aria-pressed={filter === 'completed'}
         onClick={() => setSelectedFilter('completed')}>
         Completed
       </button>
 
       <button
         className={buttonClass(filter === 'dropped')}
+        aria-pressed={filter === 'dropped'}
         onClick={() => setSelectedFilter('dropped')}>
         Dropped
       </button>

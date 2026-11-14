@@ -29,6 +29,7 @@ const Games = () => {
         <StatusFilter filter={filter} setSelectedFilter={setFilter} />
 
         <input
+          aria-label="Search games or console"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search games or console..."
